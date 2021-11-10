@@ -4,6 +4,7 @@ import { $TSObject, open, stateManager } from 'amplify-cli-core';
 import { $TSContext } from 'amplify-cli-core';
 import { addPlaceIndexResource, updatePlaceIndexResource, removePlaceIndexResource } from './placeIndex';
 import { addMapResource, updateMapResource, removeMapResource } from './map';
+import { addGeofenceCollectionResource, updateGeofenceCollectionResource, removeGeofenceCollectionResource } from './geofenceCollection';
 import { printer, prompter } from 'amplify-prompts';
 import { getServiceFriendlyName } from '../service-walkthroughs/resourceWalkthrough';
 import { TemplateMappings } from '../service-stacks/baseStack';
@@ -26,6 +27,8 @@ export const addResource = async (context: $TSContext, service: string): Promise
       return addMapResource(context);
     case ServiceName.PlaceIndex:
       return addPlaceIndexResource(context);
+    case ServiceName.GeofenceCollection:
+      return addGeofenceCollectionResource(context);
     default:
       throw badServiceError(service);
   }
@@ -40,6 +43,8 @@ export const updateResource = async (context: $TSContext, service: string): Prom
       return updateMapResource(context);
     case ServiceName.PlaceIndex:
       return updatePlaceIndexResource(context);
+    case ServiceName.GeofenceCollection:
+      return updateGeofenceCollectionResource(context);
     default:
       throw badServiceError(service);
   }
@@ -54,6 +59,8 @@ export const removeResource = async (context: $TSContext, service: string): Prom
       return removeMapResource(context);
     case ServiceName.PlaceIndex:
       return removePlaceIndexResource(context);
+    case ServiceName.GeofenceCollection:
+      return removeGeofenceCollectionResource(context);
     default:
       throw badServiceError(service);
   }
@@ -89,6 +96,9 @@ export const openConsole = (service: string) => {
       break;
     case ServiceName.PlaceIndex:
       selection = 'places';
+      break;
+    case ServiceName.GeofenceCollection:
+      selection = 'geofencing';
       break;
     default:
       selection = undefined;
